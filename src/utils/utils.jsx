@@ -20,7 +20,7 @@ export const categoryList = [
     },
     {
         link: 'socks',
-        title: 'носки',
+        title: 'Носки',
     },
     {
         link: 'bathorobes',
