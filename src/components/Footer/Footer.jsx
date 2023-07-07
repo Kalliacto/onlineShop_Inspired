@@ -11,7 +11,7 @@ const Footer = () => {
             <Container>
                 <div className={s.container}>
                     <div className={s.category}>
-                        <h2 className={cn(s.categoryTitle, s.title)}>Каталогo </h2>
+                        <h2 className={cn(s.categoryTitle, s.title)}>Каталог</h2>
                         <ul className={s.categoryList}>
                             {footerList.map((el) => {
                                 return (

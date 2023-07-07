@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
     Route,
     RouterProvider,
@@ -8,6 +8,8 @@ import {
 import Root from './routes/Root';
 import MainPage from './pages/MainPage/MainPage';
 import ErrorPage from './pages/ErrorPage/ErrorPage';
+import { useDispatch } from 'react-redux';
+import { getCategories } from "./store/slices/navigationSlices";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -23,6 +25,12 @@ const router = createBrowserRouter(
 );
 
 const App = () => {
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getCategories());
+    }, [dispatch]);
+
     return <RouterProvider router={router}></RouterProvider>;
 };
 
