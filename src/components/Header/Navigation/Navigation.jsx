@@ -12,8 +12,8 @@ const Navigation = () => {
     const gender = location.pathname.split('/')[1] || 'women';
 
     useEffect(() => {
-        dispatch(setActiveGender(gender))
-    }, [dispatch, gender])
+        dispatch(setActiveGender(gender));
+    }, [dispatch, gender]);
 
     return (
         <nav>

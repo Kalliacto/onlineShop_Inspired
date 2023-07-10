@@ -1,5 +1,5 @@
-import { createAsyncThunk, createSlice, isPending, isRejected } from "@reduxjs/toolkit";
-import { CATEGORY_URL } from "../../utils/api";
+import { createAsyncThunk, createSlice, isPending, isRejected } from '@reduxjs/toolkit';
+import { CATEGORY_URL } from '../../utils/api';
 
 const initialState = {
     activeGender: 'women',
@@ -7,10 +7,11 @@ const initialState = {
     genderList: [],
     isLoading: false,
     error: null,
-}
+};
 
 export const getCategories = createAsyncThunk(
-    'navigation/getCategories', async ( _,{ fulfillWithValue, rejectWithValue }) => {
+    'navigation/getCategories',
+    async (_, { fulfillWithValue, rejectWithValue }) => {
         try {
             const categories = await fetch(CATEGORY_URL);
             const data = await categories.json();
@@ -27,7 +28,7 @@ const navigationSlice = createSlice({
     reducers: {
         setActiveGender: (state, action) => {
             state.activeGender = action.payload;
-        }
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(getCategories.fulfilled, (state, action) => {
@@ -40,10 +41,10 @@ const navigationSlice = createSlice({
         });
         builder.addMatcher(isRejected(getCategories), (state, action) => {
             state.isLoading = false;
-            console.log(action.payload.message);
+            state.error = action.payload.message;
         });
     },
-})
+});
 
-export const {setActiveGender} = navigationSlice.actions;
+export const { setActiveGender } = navigationSlice.actions;
 export default navigationSlice.reducer;

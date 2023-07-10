@@ -27,14 +27,13 @@ const colorSlice = createSlice({
         builder.addCase(getColors.fulfilled, (state, action) => {
             state.isLoading = false;
             state.colorList = action.payload;
-            console.log(action.payload);
         });
         builder.addMatcher(isPending(getColors), (state) => {
             state.isLoading = true;
         });
         builder.addMatcher(isRejected(getColors), (state, action) => {
             state.isLoading = false;
-            console.log(action.payload.message);
+            state.error = action.payload.message;
         });
     },
 });
