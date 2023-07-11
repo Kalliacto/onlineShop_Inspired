@@ -1,34 +1,31 @@
 import React, { useEffect } from 'react';
-import Container from '../../components/Layout/Container/Container';
-import { useDispatch, useSelector } from 'react-redux';
-import { getGoods } from '../../store/slices/goodsSlice';
-import s from './MainPage.module.scss';
-import Product from '../../components/Product/Product';
+import { useDispatch } from 'react-redux';
+import { getCategory, getGender } from '../../store/slices/goodsSlice';
+import { useParams } from 'react-router-dom';
+import { setActiveGender } from '../../store/slices/navigationSlices';
+import GoodsList from '../../components/GoodsList/GoodsList';
 
-const MainPage = ({ gender = 'women' }) => {
+const MainPage = () => {
+    const { category, gender } = useParams();
     const dispatch = useDispatch();
-    const { goods } = useSelector((s) => s.goods);
 
     useEffect(() => {
-        dispatch(getGoods(gender));
-    }, [dispatch, gender]);
+        if (gender && category) {
+            dispatch(getCategory({ gender, category }));
+            return () => {};
+        }
+        if (gender) {
+            dispatch(getGender(gender));
+            return;
+        }
+        dispatch(setActiveGender(gender));
+    }, [dispatch, gender, category]);
 
     return (
-        <section className={s.goods}>
-            <Container>
-                <h2 className={s.title}>Новинки</h2>
-                <ul className={s.list}>
-                    {!!goods &&
-                        goods.map((el) => {
-                            return (
-                                <li key={el.id}>
-                                    <Product {...el} />
-                                </li>
-                            );
-                        })}
-                </ul>
-            </Container>
-        </section>
+        <>
+            <div></div>
+            <GoodsList category={category} />
+        </>
     );
 };
 

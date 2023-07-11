@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import s from './Gender.module.scss';
 import { NavLink } from 'react-router-dom';
 import cn from 'classnames';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setActiveGender } from '../../../../store/slices/navigationSlices';
 
-const Gender = () => {
-    const { activeGender, genderList, categories} = useSelector(s => s.navigation);
+const Gender = ({ gender }) => {
+    const { activeGender, genderList, categories } = useSelector((s) => s.navigation);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(setActiveGender(gender));
+    }, [dispatch, gender]);
 
     return (
         <ul className={s.gender}>
@@ -13,8 +19,10 @@ const Gender = () => {
                 return (
                     <li className={s.item} key={gender}>
                         <NavLink
-                            to={gender}
-                            className={({ isActive }) => cn(s.link, (isActive || gender === activeGender) && s.linkActive)}
+                            to={`/catalog/${gender}`}
+                            className={({ isActive }) =>
+                                cn(s.link, (isActive || gender === activeGender) && s.linkActive)
+                            }
                         >
                             {categories[gender].title}
                         </NavLink>
