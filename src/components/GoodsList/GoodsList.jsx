@@ -4,13 +4,10 @@ import s from './GoodsList.module.scss';
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-const GoodsList = ({ category }) => {
+const GoodsList = ({ categoryData }) => {
     const { goods } = useSelector((s) => s.goods);
-    const { activeGender, categories } = useSelector((s) => s.navigation);
 
-    const title = category
-        ? categories[activeGender]?.list?.find((el) => el.slug === category).title
-        : 'Новинки';
+    const title = categoryData ? categoryData.title : 'Новинки';
 
     return (
         <section className={s.goods}>

@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice, isPending, isRejected } from '@reduxjs/t
 import { CATEGORY_URL } from '../../utils/api';
 
 const initialState = {
-    activeGender: '',
+    activeGender: 'women',
     categories: {},
     genderList: [],
     isLoading: false,

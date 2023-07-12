@@ -8,8 +8,8 @@ import ColorList from '../ColorList/ColorList';
 const Product = (props) => {
     return (
         <article className={s.product}>
-            <NavLink to={`product/${props.id}`} className={s.link}>
-                <img src={`${API_URL}/${props.pic}`} alt='' className={s.image} />
+            <NavLink to={`/product/${props.id}`} className={s.link}>
+                <img src={`${API_URL}/${props.pic}`} alt={props.title} className={s.image} />
                 <h3 className={s.title}>{props.title}</h3>
             </NavLink>
             <div className={s.row}>
