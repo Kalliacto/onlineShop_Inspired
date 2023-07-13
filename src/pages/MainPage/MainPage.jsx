@@ -37,7 +37,7 @@ const MainPage = () => {
     return (
         <>
             {!categoryData && <Banner bannerData={genderData?.banner} />}
-            <GoodsList categoryData={categoryData} />
+            <GoodsList title={categoryData?.title} />
         </>
     );
 };
