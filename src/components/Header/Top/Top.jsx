@@ -4,8 +4,12 @@ import s from './Top.module.scss';
 import cn from 'classnames';
 import logo from '/src/assets/img/logo.svg';
 import { NavLink } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setActiveGender } from '../../../store/slices/navigationSlices';
 
 const Top = () => {
+    const dispatch = useDispatch();
+
     return (
         <div className={s.top}>
             <Container className={s.topContainer}>
@@ -13,6 +17,7 @@ const Top = () => {
                     8 930 490 26 20
                 </a>
                 <NavLink className={s.topLogo} to={'/'}>
+                    {/* <img src={logo} alt='logo' onClick={dispatch(setActiveGender('women'))} /> */}
                     <img src={logo} alt='logo' />
                 </NavLink>
                 <div className={s.topNavigation}>
