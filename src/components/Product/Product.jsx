@@ -2,8 +2,8 @@ import React from 'react';
 import s from './Product.module.scss';
 import { API_URL } from '../../utils/api';
 import { NavLink } from 'react-router-dom';
-import { ReactComponent as Like } from '../../assets/img/Heart.svg';
 import ColorList from '../ColorList/ColorList';
+import LikeBtn from '../Likebtn/Likebtn';
 
 const Product = (props) => {
     return (
@@ -15,7 +15,7 @@ const Product = (props) => {
             <div className={s.row}>
                 <p className={s.price}>{props.price}&nbsp;&#8381;</p>
                 <button className={s.favorite}>
-                    <Like />
+                    <LikeBtn id={props.id} />
                     <ColorList colors={props.colors} />
                 </button>
             </div>

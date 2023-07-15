@@ -12,13 +12,17 @@ import { useDispatch } from 'react-redux';
 import { getCategories } from './store/slices/navigationSlices';
 import { getColors } from './store/slices/colorSlice';
 import ProductPage from './pages/ProductPage/ProductPage';
+import FavoritePage from './pages/FavoritePage/FavoritePage';
+import CartPage from './pages/CartPage/CartPage';
 
 const router = createBrowserRouter(
     createRoutesFromElements(
         <Route path='/' element={<Root />}>
             <Route index element={<MainPage />} />
-            <Route path='catalog/:gender/:category?' element={<MainPage />} />
-            <Route path='product/:id' element={<ProductPage />} />
+            <Route path='/catalog/:gender/:category?' element={<MainPage />} />
+            <Route path='/product/:id' element={<ProductPage />} />
+            <Route path='/favorite' element={<FavoritePage />} />
+            <Route path='/cart' element={<CartPage />} />
             {/* <Route path='women/:category' element={<MainPage gender='women' />} />
             <Route path='men' element={<MainPage gender='men' />} />
             <Route path='men/:category' element={<MainPage gender='men' />} />

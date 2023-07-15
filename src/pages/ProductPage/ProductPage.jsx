@@ -7,11 +7,11 @@ import { getProductInfo } from '../../store/slices/productSlice';
 import { API_URL } from '../../utils/api';
 import cn from 'classnames';
 import ColorList from '../../components/ColorList/ColorList';
-import { ReactComponent as Like } from '../../assets/img/Heart.svg';
 import Count from '../../components/Count/Count';
 import ProductSize from '../../components/ProductSize/ProductSize';
 import GoodsList from '../../components/GoodsList/GoodsList';
 import { getCategory } from '../../store/slices/goodsSlice';
+import LikeBtn from '../../components/Likebtn/Likebtn';
 
 const ProductPage = () => {
     const { id } = useParams();
@@ -99,13 +99,7 @@ const ProductPage = () => {
                             <button className={s.addCart} type='submit'>
                                 В корзину
                             </button>
-                            <button
-                                className={s.favorite}
-                                aria-label='Добавить в избранное'
-                                type='button'
-                            >
-                                <Like />
-                            </button>
+                            <LikeBtn id={id} className={s.favorite} />
                         </div>
                     </form>
                 </Container>
