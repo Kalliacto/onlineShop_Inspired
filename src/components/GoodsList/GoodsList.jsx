@@ -1,4 +1,5 @@
 import Container from '../Layout/Container/Container';
+import Pagination from '../Pagination/Pagination';
 import Product from '../Product/Product';
 import s from './GoodsList.module.scss';
 import React from 'react';
@@ -21,6 +22,7 @@ const GoodsList = ({ title }) => {
                             );
                         })}
                 </ul>
+                <Pagination />
             </Container>
         </section>
     );

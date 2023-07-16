@@ -14,10 +14,10 @@ const Product = (props) => {
             </NavLink>
             <div className={s.row}>
                 <p className={s.price}>{props.price}&nbsp;&#8381;</p>
-                <button className={s.favorite}>
+                <div className={s.favorite}>
                     <LikeBtn id={props.id} />
                     <ColorList colors={props.colors} />
-                </button>
+                </div>
             </div>
         </article>
     );

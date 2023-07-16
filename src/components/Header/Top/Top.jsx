@@ -11,8 +11,6 @@ import { ReactComponent as Cart } from '../../../assets/img/Cart.svg';
 import { ReactComponent as Search } from '../../../assets/img/Search.svg';
 
 const Top = () => {
-    const dispatch = useDispatch();
-
     return (
         <div className={s.top}>
             <Container className={s.topContainer}>

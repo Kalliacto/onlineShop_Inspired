@@ -46,15 +46,22 @@ export const getCategory = createAsyncThunk(
 const goodsSlice = createSlice({
     name: 'goods',
     initialState,
+    reducers: {
+        setPage: (state, action) => {
+            state.page = action.payload;
+        },
+    },
     extraReducers: (builder) => {
         builder.addCase(getGender.fulfilled, (state, action) => {
             state.isLoading = false;
             state.goods = action.payload;
+            state.page = 0;
+            state.totalCount = null;
         });
         builder.addCase(getCategory.fulfilled, (state, action) => {
             state.isLoading = false;
             state.goods = action.payload.goods;
-            state.page = action.payload.page;
+            //state.page = action.payload.page;
             state.pages = action.payload.pages;
             state.totalCount = action.payload.totalCount;
         });
@@ -68,4 +75,5 @@ const goodsSlice = createSlice({
     },
 });
 
+export const { setPage } = goodsSlice.actions;
 export default goodsSlice.reducer;
