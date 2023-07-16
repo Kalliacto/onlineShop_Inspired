@@ -2,10 +2,12 @@ import React from 'react';
 import Container from '../Layout/Container/Container';
 import s from './Footer.module.scss';
 import cn from 'classnames';
-import { footerList } from '../../utils/utils';
 import { NavLink } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const Footer = () => {
+    const { genderList, categories } = useSelector((s) => s.navigation);
+
     return (
         <footer>
             <Container>
@@ -13,21 +15,20 @@ const Footer = () => {
                     <div className={s.category}>
                         <h2 className={cn(s.categoryTitle, s.title)}>Каталог</h2>
                         <ul className={s.categoryList}>
-                            {footerList.map((el) => {
+                            {genderList.map((gender) => {
                                 return (
-                                    <li key={el.link} className={s.categoryItem}>
+                                    <li key={gender} className={s.categoryItem}>
                                         <h3 className={s.categorySubtitle}>
-                                            <NavLink to={el.link} className={s.link}>
-                                                {' '}
-                                                {el.title}
+                                            <NavLink to={`/catalog/${gender}`} className={s.link}>
+                                                {categories[gender].title}
                                             </NavLink>
                                         </h3>
                                         <ul className={s.categorySublist}>
-                                            {el.categories.map((category) => {
+                                            {categories[gender]?.list?.map((category) => {
                                                 return (
-                                                    <li key={category.title}>
+                                                    <li key={category.slug}>
                                                         <NavLink
-                                                            to={`${el.link}/${category.link}`}
+                                                            to={`/catalog/${gender}/${category.slug}`}
                                                             className={s.link}
                                                         >
                                                             {category.title}
