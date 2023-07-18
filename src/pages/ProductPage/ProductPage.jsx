@@ -59,7 +59,7 @@ const ProductPage = memo(() => {
     }, [dispatch, product.gender, product.category, product.id]);
 
     useEffect(() => {
-        if (colorList.length && product.colors?.length) {
+        if (colorList?.length && product.colors?.length) {
             setSelectedColor(colorList.find((color) => color.id === product.colors[0]).title);
         }
     }, [colorList, product?.colors]);
