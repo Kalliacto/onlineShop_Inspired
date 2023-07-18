@@ -1,6 +1,6 @@
 import React from 'react';
-import OrderForm from '../../components/OrderForm/OrderForm';
-import Cart from '../../components/CartItem/Cart';
+import OrderForm from '../../components/Cart/OrderForm/OrderForm';
+import Cart from '../../components/Cart/Cart';
 
 const CartPage = (props) => {
     return (

@@ -1,7 +1,7 @@
 import React from 'react';
-import s from './OrderForm.module.scss';
+import s from './CartItem.module.scss';
 
-const OrderForm = (props) => {
+const CartItem = (props) => {
     return (
         <div>
             <div></div>
@@ -9,4 +9,4 @@ const OrderForm = (props) => {
     );
 };
 
-export default OrderForm;
+export default CartItem;

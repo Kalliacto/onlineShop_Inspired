@@ -4,7 +4,7 @@ import s from './Cart.module.scss';
 const Cart = (props) => {
     return (
         <div>
-            <div></div>
+            <div>Cart</div>
         </div>
     );
 };
