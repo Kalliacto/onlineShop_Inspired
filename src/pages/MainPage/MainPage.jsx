@@ -7,9 +7,9 @@ import Banner from '../../components/Banner/Banner';
 import { usePageFromSearchParams } from '../../hooks/usePageFromSearchParams';
 
 const MainPage = () => {
-    const { category, gender } = useParams();
+    const { category, gender = 'women' } = useParams();
     const dispatch = useDispatch();
-    const { activeGender, categories, genderList } = useSelector((s) => s.navigation);
+    const { activeGender, categories } = useSelector((s) => s.navigation);
     const genderData = categories[activeGender];
     const categoryData = genderData?.list?.find((el) => el.slug === category);
     const page = usePageFromSearchParams(dispatch);

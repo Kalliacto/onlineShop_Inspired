@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import s from './ProductPage.module.scss';
 import { useParams } from 'react-router-dom';
 import Container from '../../components/Layout/Container/Container';
@@ -12,13 +12,15 @@ import ProductSize from '../../components/ProductSize/ProductSize';
 import GoodsList from '../../components/GoodsList/GoodsList';
 import { getCategory } from '../../store/slices/goodsSlice';
 import LikeBtn from '../../components/Likebtn/Likebtn';
+import { addToCart } from '../../store/slices/cartSlice';
 
-const ProductPage = () => {
+const ProductPage = memo(() => {
     const { id } = useParams();
     const dispatch = useDispatch();
     const { product } = useSelector((s) => s.product);
+    const { colorList } = useSelector((s) => s.colors);
     const [selectedColor, setSelectedColor] = useState('');
-    const [count, setCount] = useState(0);
+    const [count, setCount] = useState(1);
     const [selectedSize, setSelectedSize] = useState('');
 
     const handleSizeChange = (e) => {
@@ -56,6 +58,12 @@ const ProductPage = () => {
         );
     }, [dispatch, product.gender, product.category, product.id]);
 
+    useEffect(() => {
+        if (colorList?.length && product.colors?.length) {
+            setSelectedColor(colorList.find((color) => color.id === product.colors[0]).title);
+        }
+    }, [colorList, product?.colors]);
+
     return (
         <>
             <section className={s.card}>
@@ -65,7 +73,21 @@ const ProductPage = () => {
                         src={`${API_URL}/${product.pic}`}
                         alt={product.title}
                     />
-                    <form className={s.content}>
+                    <form
+                        className={s.content}
+                        onSubmit={(e) => {
+                            e.preventDefault();
+                            dispatch(
+                                addToCart({
+                                    id,
+                                    color: selectedColor,
+                                    size: selectedSize,
+                                    count,
+                                    // price: product.price,
+                                })
+                            );
+                        }}
+                    >
                         <h2 className={s.title}>{product.title}</h2>
                         <p className={s.price}>{product.price}&nbsp;&#8381;</p>
                         <div className={s.vendorCode}>
@@ -107,6 +129,6 @@ const ProductPage = () => {
             <GoodsList title='Вам может понравиться' />
         </>
     );
-};
+});
 
 export default ProductPage;

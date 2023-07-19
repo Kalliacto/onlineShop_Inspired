@@ -43,6 +43,24 @@ export const getCategory = createAsyncThunk(
     }
 );
 
+export const getAll = createAsyncThunk(
+    'goods/getAll',
+    async (param = [], { fulfillWithValue, rejectWithValue }) => {
+        try {
+            const url = new URL(GOODS_URL);
+            for (const key in param) {
+                url.searchParams.append(key, param[key]);
+            }
+            url.searchParams.append('count', 'all');
+            const res = await fetch(url);
+            const data = await res.json();
+            return fulfillWithValue(data);
+        } catch (error) {
+            return rejectWithValue(error);
+        }
+    }
+);
+
 const goodsSlice = createSlice({
     name: 'goods',
     initialState,
@@ -64,6 +82,12 @@ const goodsSlice = createSlice({
             //state.page = action.payload.page;
             state.pages = action.payload.pages;
             state.totalCount = action.payload.totalCount;
+        });
+        builder.addCase(getAll.fulfilled, (state, action) => {
+            state.isLoading = false;
+            state.goods = action.payload;
+            state.page = 0;
+            state.totalCount = null;
         });
         builder.addMatcher(isPending(getGender, getCategory), (state) => {
             state.isLoading = true;

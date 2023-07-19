@@ -4,7 +4,6 @@ import Category from './Category/Category';
 import Container from '../../Layout/Container/Container';
 import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { useLocation } from 'react-router-dom';
 import { setActiveGender } from '../../../store/slices/navigationSlices';
 
 const Navigation = () => {
@@ -17,8 +16,8 @@ const Navigation = () => {
         // если по умолчанию мы будем использовать women то у нас при переходе в product
         // будут всегда отображаться подкатегория женское, поэтому нам нужно оставить значение
         // в стэйте до перехода по другому пути
-        if (gender) {
-            dispatch(setActiveGender(gender));
+        if (!gender) {
+            dispatch(setActiveGender('women'));
         }
     }, [dispatch, gender]);
 
