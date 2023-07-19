@@ -17,11 +17,12 @@ const cartSlice = createSlice({
                 (el) => el.id === id && el.color === color && el.size === size
             );
             if (item) {
-                item.count += count;
+                item.count = count;
             } else {
-                state.cartItems.push(action.payload);
+                state.cartItems.push({ id, color, size, count });
             }
             localStorage.setItem('cart', JSON.stringify(state.cartItems));
+            state.countItems = state.cartItems.length;
         },
         removeFromCart(state, action) {
             const { id, color, size, count } = action.payload;
@@ -33,6 +34,7 @@ const cartSlice = createSlice({
                 state.cartItems.splice(itemIndex, 1);
             }
             localStorage.setItem('cart', JSON.stringify(state.cartItems));
+            state.countItems = state.cartItems.length;
         },
     },
 });

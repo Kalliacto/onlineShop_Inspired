@@ -78,7 +78,13 @@ const ProductPage = memo(() => {
                         onSubmit={(e) => {
                             e.preventDefault();
                             dispatch(
-                                addToCart({ id, color: selectedColor, size: selectedSize, count })
+                                addToCart({
+                                    id,
+                                    color: selectedColor,
+                                    size: selectedSize,
+                                    count,
+                                    // price: product.price,
+                                })
                             );
                         }}
                     >

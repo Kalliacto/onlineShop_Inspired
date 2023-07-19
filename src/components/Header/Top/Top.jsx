@@ -4,13 +4,15 @@ import s from './Top.module.scss';
 import cn from 'classnames';
 import logo from '/src/assets/img/logo.svg';
 import { NavLink } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { setActiveGender } from '../../../store/slices/navigationSlices';
+import { useSelector } from 'react-redux';
 import { ReactComponent as Like } from '../../../assets/img/Heart.svg';
 import { ReactComponent as Cart } from '../../../assets/img/Cart.svg';
 import { ReactComponent as Search } from '../../../assets/img/Search.svg';
 
 const Top = () => {
+    const { countItems } = useSelector((s) => s.cart);
+    const { countFavorite } = useSelector((s) => s.favorite);
+
     return (
         <div className={s.top}>
             <Container className={s.topContainer}>
@@ -31,11 +33,13 @@ const Top = () => {
                         <li className={s.topNavItem}>
                             <NavLink to={'/cart'} className={s.topLink}>
                                 <Cart />
+                                <span className={s.topLinkCount}>{countItems}</span>
                             </NavLink>
                         </li>
                         <li className={s.topNavItem}>
                             <NavLink to={'/favorite'} className={cn(s.topLink, s.like)}>
                                 <Like />
+                                <span className={s.topLinkCount}>{countFavorite}</span>
                             </NavLink>
                         </li>
                     </ul>
