@@ -7,7 +7,8 @@ import cn from 'classnames';
 
 const LikeBtn = ({ id }) => {
     const dispatch = useDispatch();
-    const isFavorite = useSelector((state) => state.favorite.includes(id));
+    const { favorite: favoriteList } = useSelector((s) => s.favorite);
+    const isFavorite = favoriteList.includes(id);
 
     const handleFavoriteToggle = () => {
         if (isFavorite) {

@@ -3,10 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getCategory } from '../../store/slices/goodsSlice';
 import GoodsList from '../../components/GoodsList/GoodsList';
 import { usePageFromSearchParams } from '../../hooks/usePageFromSearchParams';
+import s from './FavoritePage.module.scss';
 
 const FavoritePage = (props) => {
     const dispatch = useDispatch();
-    const favoriteList = useSelector((s) => s.favorite);
+    const { favorite: favoriteList } = useSelector((s) => s.favorite);
     const page = usePageFromSearchParams(dispatch);
 
     useEffect(() => {
@@ -21,7 +22,11 @@ const FavoritePage = (props) => {
 
     return (
         <>
-            <GoodsList title={'Избранное'} />
+            {favoriteList.length ? (
+                <GoodsList title={'Избранное'} />
+            ) : (
+                <h3 className={s.empty}>Вы ничего еще не добавили в избранное</h3>
+            )}
         </>
     );
 };

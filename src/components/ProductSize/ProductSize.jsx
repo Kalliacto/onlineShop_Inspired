@@ -14,7 +14,7 @@ const ProductSize = ({ size, selectedSize, handleSizeChange }) => {
                                 className={s.input}
                                 name='size'
                                 value={el}
-                                checked={selectedSize === el}
+                                defaultChecked={selectedSize === el}
                                 onClick={handleSizeChange}
                             />
                             <span className={s.check}>{el}</span>

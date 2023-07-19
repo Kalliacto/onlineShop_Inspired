@@ -4,6 +4,7 @@ import colorSlice from './slices/colorSlice';
 import goodsSlice from './slices/goodsSlice';
 import productSlice from './slices/productSlice';
 import favoriteSlice from './slices/favoriteSlice';
+import cartSlice from './slices/cartSlice';
 
 export const rootReducer = combineReducers({
     navigation: navigationSlices,
@@ -11,4 +12,5 @@ export const rootReducer = combineReducers({
     goods: goodsSlice,
     product: productSlice,
     favorite: favoriteSlice,
+    cart: cartSlice,
 });
