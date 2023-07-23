@@ -12,7 +12,9 @@ const OrderForm = ({ cartItems, goodsList }) => {
 
     const validationSchema = Yup.object({
         fio: Yup.string().required('Заполните ФИО'),
-        address: Yup.string().required('Заполните адрес'),
+        address: Yup.string().test('deliveryTest', 'Введите адрес', function (value) {
+            return this.parent.delivery === 'delivery' ? !!value : true;
+        }),
         phone: Yup.string()
             .required('Заполните номер телефона')
             .matches(/^\+\d{1}\(\d{3}\)\-\d{3}\-\d{4}$/, 'Неккоректный формат номера телефона'),
