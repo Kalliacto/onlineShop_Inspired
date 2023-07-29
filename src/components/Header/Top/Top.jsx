@@ -9,7 +9,7 @@ import { ReactComponent as Like } from '../../../assets/img/Heart.svg';
 import { ReactComponent as Cart } from '../../../assets/img/Cart.svg';
 import { ReactComponent as Search } from '../../../assets/img/Search.svg';
 
-const Top = () => {
+const Top = ({ setOpenSearch }) => {
     const { countItems } = useSelector((s) => s.cart);
     const { countFavorite } = useSelector((s) => s.favorite);
 
@@ -26,7 +26,10 @@ const Top = () => {
                 <div className={s.topNavigation}>
                     <ul className={s.topNavList}>
                         <li className={s.topNavItem}>
-                            <button className={s.topLink}>
+                            <button
+                                onClick={() => setOpenSearch((state) => !state)}
+                                className={s.topLink}
+                            >
                                 <Search />
                             </button>
                         </li>
