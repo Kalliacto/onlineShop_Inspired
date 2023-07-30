@@ -9,7 +9,7 @@ const Header = () => {
     return (
         <header className={s.header}>
             <Top setOpenSearch={setOpenSearch} />
-            <Search openSearch={openSearch} />
+            <Search openSearch={openSearch} setOpenSearch={setOpenSearch} />
             <Navigation />
         </header>
     );
