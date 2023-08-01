@@ -4,10 +4,13 @@ import Container from '../../Layout/Container/Container';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { PatternFormat } from 'react-number-format';
 import * as Yup from 'yup';
+import { useDispatch } from 'react-redux';
+import { sendOrder } from '../../../store/slices/cartSlice';
 
-const OrderForm = ({ cartItems, goodsList }) => {
+const OrderForm = ({ cartItems }) => {
+    const dispatch = useDispatch();
     const handleSubmitOrder = (values) => {
-        console.log({ values });
+        dispatch(sendOrder({ order: cartItems, values }));
     };
 
     const validationSchema = Yup.object({
