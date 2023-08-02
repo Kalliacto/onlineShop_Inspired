@@ -103,5 +103,5 @@ export const getEndings = (num, word) => {
 };
 
 export const scrollToTop = () => {
-    window.scrollTo(0, 0);
+    window.scrollTo({ left: 0, top: 0, behavior: 'smooth' });
 };

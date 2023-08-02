@@ -8,14 +8,13 @@ const Main = ({ children }) => {
     const { status } = useSelector((s) => s.statusServer);
     const location = useLocation();
     const navigate = useNavigate();
+    const [visible, setVisible] = useState(false);
 
     useEffect(() => {
         if (!status && location.pathname !== '/404') {
             navigate('/404');
         }
     }, [navigate, status, location]);
-
-    const [visible, setVisible] = useState(false);
 
     const toggleVisible = () => {
         const scrolled = document.documentElement.scrollTop;
