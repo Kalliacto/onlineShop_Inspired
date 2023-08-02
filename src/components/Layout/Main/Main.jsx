@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import s from './Main.module.scss';
 import { useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
+import GoToTopBtn from '../../GoToTopBtn/GoToTopBtn';
 
 const Main = ({ children }) => {
     const { status } = useSelector((s) => s.statusServer);
@@ -14,7 +15,25 @@ const Main = ({ children }) => {
         }
     }, [navigate, status, location]);
 
-    return <div className={s.main}>{children}</div>;
+    const [visible, setVisible] = useState(false);
+
+    const toggleVisible = () => {
+        const scrolled = document.documentElement.scrollTop;
+        if (scrolled > 200) {
+            setVisible(true);
+        } else if (scrolled <= 200) {
+            setVisible(false);
+        }
+    };
+
+    window.addEventListener('scroll', toggleVisible);
+
+    return (
+        <div className={s.main}>
+            {children}
+            <GoToTopBtn top={visible} />
+        </div>
+    );
 };
 
 export default Main;

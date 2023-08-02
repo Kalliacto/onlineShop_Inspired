@@ -101,3 +101,7 @@ export const getEndings = (num, word) => {
         return ` ${word}ов`;
     }
 };
+
+export const scrollToTop = () => {
+    window.scrollTo(0, 0);
+};
