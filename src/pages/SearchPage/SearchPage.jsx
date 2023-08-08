@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 import { getAll } from '../../store/slices/goodsSlice';
 import GoodsList from '../../components/GoodsList/GoodsList';
-import { getEndings } from '../../utils/utils';
+import { getEnding, getEndingsTwo } from '../../utils/utils';
 
-const SearchPage = (props) => {
+const SearchPage = () => {
     const { goods: goodsList } = useSelector((s) => s.goods);
     const dispatch = useDispatch();
     let [searchParams] = useSearchParams();
@@ -22,9 +22,10 @@ const SearchPage = (props) => {
         <>
             {goodsList.length ? (
                 <GoodsList
-                    title={`По вашему запросу ${searchParams.get('q')} найдено ${
-                        goodsList.length
-                    } ${getEndings(goodsList.length, 'товар')}`}
+                    title={`По вашему запросу ${searchParams.get('q')} ${getEndingsTwo(
+                        goodsList.length,
+                        'найден'
+                    )}   ${goodsList.length} ${'товар' + getEnding(goodsList.length)}`}
                 />
             ) : (
                 <h3 className={s.empty}>

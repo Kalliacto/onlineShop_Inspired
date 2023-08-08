@@ -18,14 +18,20 @@ const Main = ({ children }) => {
 
     const toggleVisible = () => {
         const scrolled = document.documentElement.scrollTop;
-        if (scrolled > 200) {
+        if (scrolled > 300) {
             setVisible(true);
-        } else if (scrolled <= 200) {
+        } else if (scrolled <= 300) {
             setVisible(false);
         }
     };
 
-    window.addEventListener('scroll', toggleVisible);
+    useEffect(() => {
+        window.addEventListener('scroll', toggleVisible);
+
+        return () => {
+            window.removeEventListener('scroll', toggleVisible);
+        };
+    }, []);
 
     return (
         <div className={s.main}>
