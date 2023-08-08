@@ -14,6 +14,7 @@ import { getColors } from './store/slices/colorSlice';
 import ProductPage from './pages/ProductPage/ProductPage';
 import FavoritePage from './pages/FavoritePage/FavoritePage';
 import CartPage from './pages/CartPage/CartPage';
+import SearchPage from './pages/SearchPage/SearchPage';
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -23,6 +24,7 @@ const router = createBrowserRouter(
             <Route path='/product/:id' element={<ProductPage />} />
             <Route path='/favorite' element={<FavoritePage />} />
             <Route path='/cart' element={<CartPage />} />
+            <Route path='/search' element={<SearchPage />} />
             {/* <Route path='women/:category' element={<MainPage gender='women' />} />
             <Route path='men' element={<MainPage gender='men' />} />
             <Route path='men/:category' element={<MainPage gender='men' />} />

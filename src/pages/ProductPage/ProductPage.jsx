@@ -13,6 +13,7 @@ import GoodsList from '../../components/GoodsList/GoodsList';
 import { getCategory } from '../../store/slices/goodsSlice';
 import LikeBtn from '../../components/Likebtn/Likebtn';
 import { addToCart } from '../../store/slices/cartSlice';
+import { scrollToTop } from '../../utils/utils';
 
 const ProductPage = memo(() => {
     const { id } = useParams();
@@ -43,6 +44,7 @@ const ProductPage = memo(() => {
     };
 
     useEffect(() => {
+        scrollToTop();
         dispatch(getProductInfo(id));
     }, [dispatch, id]);
 
@@ -64,6 +66,15 @@ const ProductPage = memo(() => {
         }
     }, [colorList, product?.colors]);
 
+    const handleSubmitData = (e, data) => {
+        e.preventDefault();
+
+        if (!data.size) {
+            window.alert('Вы не выбрали размер. Выбор размера обязателен!');
+        }
+        dispatch(addToCart(data));
+    };
+
     return (
         <>
             <section className={s.card}>
@@ -75,18 +86,15 @@ const ProductPage = memo(() => {
                     />
                     <form
                         className={s.content}
-                        onSubmit={(e) => {
-                            e.preventDefault();
-                            dispatch(
-                                addToCart({
-                                    id,
-                                    color: selectedColor,
-                                    size: selectedSize,
-                                    count,
-                                    // price: product.price,
-                                })
-                            );
-                        }}
+                        onSubmit={(e) =>
+                            handleSubmitData(e, {
+                                id,
+                                color: selectedColor,
+                                size: selectedSize,
+                                count,
+                                // price: product.price,
+                            })
+                        }
                     >
                         <h2 className={s.title}>{product.title}</h2>
                         <p className={s.price}>{product.price}&nbsp;&#8381;</p>
@@ -126,6 +134,7 @@ const ProductPage = memo(() => {
                     </form>
                 </Container>
             </section>
+
             <GoodsList title='Вам может понравиться' />
         </>
     );

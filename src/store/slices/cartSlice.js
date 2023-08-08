@@ -1,11 +1,32 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, isPending, isRejected } from '@reduxjs/toolkit';
+import { ORDER_URL } from '../../utils/api';
 
 const cartItems = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [];
 
 const initialState = {
     cartItems,
     countItems: cartItems.length,
+    orderStatus: 'idle',
+    order: {},
+    error: null,
+    total: 0,
 };
+
+export const sendOrder = createAsyncThunk(
+    'cart/sendOrder',
+    async (data, { fulfillWithValue, rejectWithValue }) => {
+        try {
+            const url = new URL(ORDER_URL);
+            const res = await fetch(url, {
+                method: 'POST',
+                body: JSON.stringify(data),
+            }).then((res) => res.json());
+            return fulfillWithValue(res);
+        } catch (error) {
+            return rejectWithValue(error);
+        }
+    }
+);
 
 const cartSlice = createSlice({
     name: 'cart',
@@ -36,8 +57,34 @@ const cartSlice = createSlice({
             localStorage.setItem('cart', JSON.stringify(state.cartItems));
             state.countItems = state.cartItems.length;
         },
+        clearCart(state) {
+            state.cartItems = [];
+            localStorage.setItem('cart', JSON.stringify(state.cartItems));
+            state.countItems = state.cartItems.length;
+
+            state.orderStatus = 'idle';
+            state.order = {};
+        },
+    },
+    extraReducers: (builder) => {
+        builder.addCase(sendOrder.fulfilled, (state, action) => {
+            state.orderStatus = 'success';
+            state.order = action.payload;
+
+            state.error = null;
+        });
+        builder.addMatcher(isPending(sendOrder), (state, action) => {
+            state.orderStatus = 'loading';
+            state.order = {};
+            state.error = null;
+        });
+        builder.addMatcher(isRejected(sendOrder), (state, action) => {
+            state.orderStatus = 'failed';
+            state.order = {};
+            state.error = action.payload.message;
+        });
     },
 });
 
-export const { addToCart, removeFromCart } = cartSlice.actions;
+export const { addToCart, removeFromCart, clearCart } = cartSlice.actions;
 export default cartSlice.reducer;
